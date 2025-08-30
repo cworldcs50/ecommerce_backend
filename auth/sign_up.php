@@ -1,6 +1,6 @@
 <?php
 
-include_once  __DIR__ . "/connect.php";
+include_once  "../connect.php";
 
 $table = "users";
 $userName = filterRequest("userName");
