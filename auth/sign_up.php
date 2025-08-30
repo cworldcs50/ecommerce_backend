@@ -7,7 +7,7 @@ $userName = filterRequest("userName");
 $userPassword = sha1(filterRequest("userPassword"));
 $userEmail = filterRequest("userEmail");
 $userPhone = filterRequest("userPhone");
-$userVerifyCode = rand(10000, 99999);
+$userVerificationCode = rand(10000, 99999);
 
 
 $stmt = $con->prepare('SELECT * FROM `users` WHERE `users_password` = ? OR  `users_email` = ?');
@@ -23,10 +23,10 @@ if ($count > 0) {
         "users_email" => $userEmail,
         "users_phone" => $userPhone,
         "users_password" => $userPassword,
-        "users_verfiycode" => $userVerifyCode,
+        "users_verfiycode" => $userVerificationCode,
     );
 
-    mail($userEmail, "Verfication Code", "Enter This Code" . "\n" . $userVerifyCode);
+    sendMail($userEmail, "Verfication Code", "Enter This Code" . "\n", $userVerificationCode);
 
     $count = insertData($table, $data);
 }

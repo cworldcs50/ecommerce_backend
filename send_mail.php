@@ -5,10 +5,10 @@ include_once(__DIR__ . "/functions.php");
 
 use SendGrid\Mail\Mail;
 
-function sendMail($to, $from, $subject, $title, $verificationCode)
+function sendMail($to, $subject, $title, $verificationCode)
 {
     $email = new Mail();
-    $email->setFrom($from, "Ecommerce App");
+    $email->setFrom("mohamedomer2582004@gmail.com", "Ecommerce App");
     $email->setSubject($subject);
     $email->addTo($to);
     $email->addContent(
