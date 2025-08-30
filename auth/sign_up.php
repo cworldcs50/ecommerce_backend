@@ -10,8 +10,8 @@ $userPhone = filterRequest("userPhone");
 $userVerificationCode = rand(10000, 99999);
 
 
-$stmt = $con->prepare('SELECT * FROM `users` WHERE `users_password` = ? OR  `users_email` = ?');
-$stmt->execute(array($userPassword, $userEmail));
+$stmt = $con->prepare('SELECT * FROM `users` WHERE `users_phone` = ? OR  `users_email` = ?');
+$stmt->execute(array($userPhone, $userEmail));
 $count = $stmt->rowCount();
 
 if ($count > 0) {
