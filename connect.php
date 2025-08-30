@@ -1,10 +1,10 @@
 <?php
 
-$host = "yamanote.proxy.rlwy.net";
-$db   = "railway";
-$port = 17225;
-$user = "root";
-$password = "taNAXAfhzpinRjaROAzsrduWenWUaKmD";
+$host = getenv("HOST");
+$db   = getenv("MYSQL_DATABASE");
+$port = getenv("PORT");
+$user = getenv("MYSQLUSER");
+$password = getenv("MYSQLPASSWORD");
 
 $dsn = "mysql:host=$host;dbname=$db;port=$port;charset=utf8";
 
