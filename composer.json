@@ -1,0 +1,18 @@
+{
+    "name": "mohamedomar/ecommerce",
+    "description": "Backend for Ecommerce app",
+    "autoload": {
+        "psr-4": {
+            "Mohamedomar\\Ecommerce\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "cworldcs50",
+            "email": "114599540+cworldcs50@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.10"
+    }
+}
