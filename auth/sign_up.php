@@ -17,7 +17,6 @@ $count = $stmt->rowCount();
 if ($count > 0) {
     printFailure("PHONE OR Email Already Exists!");
 } else {
-
     $data = array(
         "users_name" => $userName,
         "users_email" => $userEmail,
