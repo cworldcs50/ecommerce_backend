@@ -23,8 +23,6 @@ function sendMail($to, $from, $subject, $title, $verificationCode)
         "Your verification code is: $verificationCode"
     );
 
-    echo json_encode(array("key" => getenv("SENDGRID_API_KEY")));
-
     $sendgrid = new \SendGrid(getenv("SENDGRID_API_KEY"));
 
     try {
