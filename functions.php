@@ -1,5 +1,6 @@
 <?php
 include_once __DIR__ . "/send_mail.php";
+include_once __DIR__ . "/connect.php";
 
 define("MB", 1048576);
 
