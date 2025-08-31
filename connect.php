@@ -14,7 +14,6 @@ try {
     include_once __DIR__ . "/functions.php";
     $con = new PDO($dsn, $user, $pass, $option);
     $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo json_encode(array("status" => "Connected successfully"));
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }
