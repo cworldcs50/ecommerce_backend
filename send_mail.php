@@ -29,7 +29,7 @@ function sendMail($to, $subject, $title, $verificationCode)
         $response = $sendgrid->send($email);
 
         if ($response->statusCode() >= 200 && $response->statusCode() < 300) {
-            echo json_encode(array("status" => "success", "message" => "Message has been sent successfully ✅"));
+            echo json_encode(array("status" => "success", "message" => "Message has been sent successfully"));
         } else {
             printFailure("SendGrid error: " . $response->statusCode() . " - " . $response->body());
         }
