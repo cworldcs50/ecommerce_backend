@@ -25,15 +25,5 @@ function sendMail($to, $subject, $title, $verificationCode)
 
     $sendgrid = new \SendGrid(getenv("SENDGRID_API_KEY"));
 
-    try {
-        $response = $sendgrid->send($email);
-
-        if ($response->statusCode() >= 200 && $response->statusCode() < 300) {
-            echo json_encode(array("status" => "success", "message" => "Message has been sent successfully"));
-        } else {
-            printFailure("SendGrid error: " . $response->statusCode() . " - " . $response->body());
-        }
-    } catch (Exception $e) {
-        printFailure("Message could not be sent. Error: " . $e->getMessage());
-    }
+    $sendgrid->send($email);
 }
