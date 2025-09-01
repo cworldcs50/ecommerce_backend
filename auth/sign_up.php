@@ -27,5 +27,5 @@ if ($count > 0) {
 
     sendMail($userEmail, "Verfication Code", "Enter This Code" . "\n", $userVerificationCode);
 
-    $count = insertData($table, $data);
+    insertData($table, $data);
 }
