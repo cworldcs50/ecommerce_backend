@@ -1,5 +1,5 @@
 <?php
-include_once  __DIR__ ."/connect.php";
+include_once  __DIR__ ."/../connect.php";
 
 $userEmail = filterRequest("userEmail");
 $userVerifyCode = filterRequest("userVerficationCode");
