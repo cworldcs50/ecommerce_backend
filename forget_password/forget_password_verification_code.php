@@ -1,18 +1,15 @@
 <?php
 include_once  __DIR__ . "/../connect.php";
-include_once __DIR__ . "/../send_mail.php";
 
-$verificationCode = rand(10000, 99999);
 $userEmail = filterRequest("userEmail");
+$userVerifyCode = filterRequest("userVerficationCode");
 
-$stmt = $con->prepare("SELECT * FROM users WHERE users_email = ?");
-$stmt->execute(array($userEmail));
+$stmt = $con->prepare("SELECT * FROM users WHERE users_email = ? AND users_verfiycode = ?");
+$stmt->execute(array($userEmail, $userVerifyCode));
 $count = $stmt->rowCount();
 
 if ($count > 0) {
-    $data = array("users_verfiycode" => $verificationCode);
-
-    updateData("users", $data, "users_email = '$userEmail'");
-    sendMail($userEmail, "Verfication Code To Reset Password", "Enter This Code" . "\n", $verificationCode);
-} else
+    echo json_encode(array("status" => "success"));
+} else {
     printFailure("Vefication Code is not correct!");
+}
