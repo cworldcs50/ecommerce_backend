@@ -4,6 +4,7 @@ include_once  __DIR__ . "/../connect.php";
 include_once __DIR__ . "/../send_mail.php";
 
 $userEmail = filterRequest("userEmail");
+$verificationCode = rand(10000, 99999);
 
 $stmt = $con->prepare("SELECT * FROM `users` WHERE `users_email` = ?");
 $stmt->execute(array($userEmail));
