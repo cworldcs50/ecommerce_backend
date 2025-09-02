@@ -10,7 +10,7 @@ $stmt->execute(array($email));
 $count = $stmt->rowCount();
 
 if ($count > 0) {
-    $data = array("users_email" => $email);
+    $data = array("users_email" => $userEmail);
     updateData("users", $data, "users_email = '$userEmail'");
     sendMail($userEmail, "Verfication Code To Reset Password", "Enter This Code" . "\n", $verificationCode);
 } else {
