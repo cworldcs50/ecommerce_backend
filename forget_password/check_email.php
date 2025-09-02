@@ -6,7 +6,7 @@ include_once __DIR__ . "/../send_mail.php";
 $userEmail = filterRequest("userEmail");
 
 $stmt = $con->prepare("SELECT * FROM `users` WHERE `users_email` = ?");
-$stmt->execute(array($email));
+$stmt->execute(array($userEmail));
 $count = $stmt->rowCount();
 
 if ($count > 0) {
