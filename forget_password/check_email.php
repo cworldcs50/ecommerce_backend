@@ -3,7 +3,7 @@
 include_once  __DIR__ . "/../connect.php";
 include_once __DIR__ . "/../send_mail.php";
 
-$email = filterRequest("userEmail");
+$userEmail = filterRequest("userEmail");
 
 $stmt = $con->prepare("SELECT * FROM `users` WHERE `users_email` = ?");
 $stmt->execute(array($email));
