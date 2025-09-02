@@ -5,7 +5,7 @@ include_once  __DIR__ . "/../connect.php";
 $userPassword = sha1(filterRequest("userPassword"));
 $userEmail = filterRequest("userEmail");
 
-$stmt = $con->prepare("SELECT * FROM `users` WHERE `users_password` = ? AND `users_email` = ?");
+$stmt = $con->prepare("SELECT * FROM `users` WHERE `users_password` = ? AND `users_email` = ? AND `users_approve` = '1'");
 $stmt->execute(array($userPassword, $userEmail));
 $count = $stmt->rowCount();
 
