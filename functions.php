@@ -13,7 +13,13 @@ function getAllData($table, $where = null, $values = null)
 {
     global $con;
     $data = array();
-    $stmt = $con->prepare("SELECT  * FROM `$table` WHERE   $where ");
+
+    if ($where == null) {
+        $stmt = $con->prepare("SELECT  * FROM `$table`");
+    } else {
+        $stmt = $con->prepare("SELECT  * FROM `$table` WHERE   $where ");
+    }
+
     $values == null ? $stmt->execute() : $stmt->execute($values);
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $count  = $stmt->rowCount();
@@ -40,7 +46,7 @@ function getData($table, $where = null, $values = null, $json = true)
             echo json_encode(array("status" => "failure"));
         }
     }
-    
+
     return $count;
 }
 
