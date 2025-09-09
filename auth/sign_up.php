@@ -9,10 +9,7 @@ $userEmail = filterRequest("userEmail");
 $userPhone = filterRequest("userPhone");
 $userVerificationCode = rand(10000, 99999);
 
-
-$stmt = $con->prepare('SELECT * FROM `users` WHERE `users_phone` = ? OR  `users_email` = ?');
-$stmt->execute(array($userPhone, $userEmail));
-$count = $stmt->rowCount();
+$count = getData($table, "`users_phone` = ? OR `users_email` = ?", array($userPhone, $userEmail), false);
 
 if ($count > 0) {
     printFailure("PHONE OR Email Already Exists!");
