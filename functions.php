@@ -32,7 +32,7 @@ function getAllData($table, $where = null, $values = null, $json = true)
         return $count;
     } else {
         if ($count > 0) {
-            return array("data" => $data);
+            return array("status" => "success", "data" => $data);
         } else {
             return array("status" => "failure");
         }
