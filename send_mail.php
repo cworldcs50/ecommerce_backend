@@ -2,6 +2,7 @@
 
 require __DIR__ . '/vendor/autoload.php';
 include_once(__DIR__ . "/functions.php");
+include_once(__DIR__ . "/secrets.php");
 
 use SendGrid\Mail\Mail;
 
@@ -23,7 +24,7 @@ function sendMail($to, $subject, $title, $verificationCode)
         "Your verification code is: $verificationCode"
     );
 
-    $sendgrid = new \SendGrid(getenv("SENDGRID_API_KEY"));
+    $sendgrid = new \SendGrid("SENDGRID_API_KEY");
 
     $sendgrid->send($email);
 }
