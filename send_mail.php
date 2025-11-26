@@ -24,7 +24,7 @@ function sendMail($to, $subject, $title, $verificationCode)
         "Your verification code is: $verificationCode"
     );
 
-    $sendgrid = new \SendGrid("SENDGRID_API_KEY");
+    $sendgrid = new SendGrid("SENDGRID_API_KEY");
 
     $sendgrid->send($email);
 }
