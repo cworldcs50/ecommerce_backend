@@ -17,7 +17,7 @@ function getAllData($table, $where = null, $values = null, $json = true)
     if ($where == null) {
         $stmt = $con->prepare("SELECT  * FROM `$table`");
     } else {
-        $stmt = $con->prepare("SELECT  * FROM `$table` WHERE   $where ");
+        $stmt = $con->prepare("SELECT  * FROM `$table` WHERE  $where ");
     }
 
     $values == null ? $stmt->execute() : $stmt->execute($values);

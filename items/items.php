@@ -1,4 +1,6 @@
-<?php 
+<?php
 include __DIR__ . "/../connect.php";
 
-$items = getAllData("items_view");
+$categoryId = filterRequest("categoryId");
+
+$items = getAllData("items_view", "items_id = ?", array($categoryId));
