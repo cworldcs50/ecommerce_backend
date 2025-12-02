@@ -10,7 +10,7 @@ INNER JOIN users ON favorites.favorites_users_id = ?
 WHERE items_view.categories_id = ?
 UNION ALL
 SELECT items_view.*, 0 AS is_favorite FROM items_view
-WHERE items_view.categories_id = ? AND items_view.items_id != ( SELECT items_view.items_id FROM items_view INNER JOIN favorites
+WHERE items_view.categories_id = ? AND items_view.items_id NOT IN ( SELECT items_view.items_id FROM items_view INNER JOIN favorites
 ON favorites.favorites_items_id = items_view.items_id
 INNER JOIN users ON favorites.favorites_users_id = ?);";
 
@@ -20,8 +20,7 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $count = $stmt->rowCount();
 
 if ($count > 0) {
-	echo json_encode(array("status" => "success", "items" => $data));
+    echo json_encode(array("status" => "success", "items" => $data));
 } else {
-	echo json_encode(array("status" => "failure"));
+    echo json_encode(array("status" => "failure"));
 }
-
