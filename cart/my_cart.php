@@ -5,10 +5,11 @@ $userId = filterRequest("userId");
 
 $data = getAllData("cart_view", "user_id = ?", array($userId), false);
 
-$stmt = $con->prepare("SELECT SUM(cart_view.item_total_price) as total_price, COUNT(cart_view.no_item) as total_count 
-                       FROM cart_view 
-                       WHERE cart_view.user_id = ?
-                       GROUP BY cart_view.user_id;"
+$stmt = $con->prepare(
+    "SELECT SUM(cart_view.item_total_price) as total_price, COUNT(cart_view.no_item) as total_count 
+    FROM cart_view 
+    WHERE cart_view.user_id = ?
+    GROUP BY cart_view.user_id;"
 );
 
 $stmt->execute(array($userId));
