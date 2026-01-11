@@ -11,3 +11,10 @@ INNER JOIN users
 ON favorites.favorites_users_id = users.users_id 
 INNER JOIN items_view 
 ON items_view.items_id = favorites.favorites_items_id;
+
+CREATE VIEW CART_VIEW AS
+SELECT SUM(items.items_price) as item_total_price, COUNT(cart.cart_item_id) as no_item, items.*, cart.* 
+FROM items 
+INNER JOIN cart 
+ON items.items_id = cart.cart_item_id 
+GROUP BY cart.cart_item_id, cart.user_id;
