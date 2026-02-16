@@ -1,6 +1,7 @@
 <?php
 include_once __DIR__ . "/send_mail.php";
 include_once __DIR__ . "/connect.php";
+require __DIR__ . '/vendor/autoload.php';
 
 define("MB", 1048576);
 
@@ -181,4 +182,50 @@ function checkAuthenticate()
 function printFailure($message = "")
 {
     echo (json_encode(array("status" => "failure", "message" => $message)));
+}
+
+function getAccessToken()
+{
+    $client = new Google_Client();
+    $client->setAuthConfig('ecommerce-ae40d-firebase-adminsdk-fbsvc-525328d7a7.json');
+    $client->addScope('https://www.googleapis.com/auth/firebase.messaging');
+
+    $token = $client->fetchAccessTokenWithAssertion();
+    return $token['access_token'];
+}
+
+function sendFCM($title, $message, $topic)
+{
+
+    $accessToken = getAccessToken();
+    $projectId = "ecommerce-ae40d";
+
+    $url = "https://fcm.googleapis.com/v1/projects/$projectId/messages:send";
+
+    $data = [
+        "message" => [
+            "topic" => $topic,
+            "notification" => [
+                "title" => $title,
+                "body" => $message
+            ]
+        ]
+    ];
+
+    $headers = [
+        "Authorization: Bearer $accessToken",
+        "Content-Type: application/json"
+    ];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    return $result;
 }

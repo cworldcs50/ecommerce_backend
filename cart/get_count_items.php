@@ -6,7 +6,7 @@ $userId = filterRequest("userId");
 $itemId = filterRequest("itemId");
 
 
-$stmt = $con->prepare("SELECT COUNT(cart_id) FROM cart where user_id = ? and cart_item_id = ?");
+$stmt = $con->prepare("SELECT COUNT(cart_id) FROM cart where user_id = ? and cart_item_id = ? and is_added_orders = 0");
 $stmt->execute(array($userId, $itemId));
 $count = $stmt->rowCount();
 $value = $stmt->fetchColumn();

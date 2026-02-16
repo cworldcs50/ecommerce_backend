@@ -8,7 +8,7 @@ $data = getAllData("cart_view", "user_id = ?", array($userId), false);
 $stmt = $con->prepare(
     "SELECT SUM(cart_view.item_total_price) as total_price, COUNT(cart_view.no_item) as total_count 
     FROM cart_view 
-    WHERE cart_view.user_id = ?
+    WHERE cart_view.user_id = ? and cart_view.is_added_orders = 0
     GROUP BY cart_view.user_id;"
 );
 
@@ -18,7 +18,7 @@ $dataCountAndPrice = $stmt->fetch(PDO::FETCH_ASSOC);
 
 echo json_encode(
     array(
-        "cartData" => $data, 
+        "cartData" => $data,
         "CountAndPriceData" => $dataCountAndPrice
     )
 );
