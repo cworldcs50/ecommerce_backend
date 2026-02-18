@@ -184,21 +184,21 @@ function printFailure($message = "")
     echo (json_encode(array("status" => "failure", "message" => $message)));
 }
 
-function getAccessToken()
+function getAccessToken($filePath)
 {
     $client = new Google_Client();
-    $client->setAuthConfig('ecommerce-ae40d-firebase-adminsdk-fbsvc-525328d7a7.json');
+    $client->setAuthConfig($filePath); //add file name
     $client->addScope('https://www.googleapis.com/auth/firebase.messaging');
 
     $token = $client->fetchAccessTokenWithAssertion();
     return $token['access_token'];
 }
 
-function sendFCM($title, $message, $topic)
+function sendFCM($title, $message, $topic, $filePath, $pageId = "none")
 {
 
-    $accessToken = getAccessToken();
-    $projectId = "ecommerce-ae40d";
+    $accessToken = getAccessToken($filePath);
+    $projectId = "ecommerce-ae40d"; //add project_id
 
     $url = "https://fcm.googleapis.com/v1/projects/$projectId/messages:send";
 
@@ -208,8 +208,11 @@ function sendFCM($title, $message, $topic)
             "notification" => [
                 "title" => $title,
                 "body" => $message
+            ],
+            "data" => [
+                "pageId" => $pageId
             ]
-        ]
+        ],
     ];
 
     $headers = [
@@ -228,4 +231,13 @@ function sendFCM($title, $message, $topic)
     curl_close($ch);
 
     return $result;
+}
+
+function insertNotification($title, $message, $userId, $topic, $filePath, $pageId = "none")
+{
+    global $con;
+    $stmt = $con->prepare("INSERT INTO notifications(notification_title, notification_body, notification_user_id) VALUES (?, ?, ?)");
+    $stmt->execute(array($title, $message, $userId));
+
+    sendFCM($title, $message, $topic, $filePath, $pageId);
 }
